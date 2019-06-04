@@ -1,10 +1,12 @@
 
-import 'flatpickr/dist/themes/material_green.css'
+import '@softleader/flatpickr/dist/themes/material_green.css'
+import {MandarinTraditionalMinguo as zhTwMinguo} from '@softleader/flatpickr/dist/l10n/zh-tw-minguo.js';
 
 import React, { Component } from 'react'
 import { render } from 'react-dom'
 
 import Flatpickr from '../lib/index.js'
+
 
 class App extends Component {
   state = {
@@ -72,6 +74,52 @@ class App extends Component {
               </div>
             )
           }} />
+          <hr/>
+          <Flatpickr  data-enable-time options={{
+            altInput: true,
+            altFormat: "C-m-d",
+            locale: zhTwMinguo,
+            allowInput: true,
+            dateFormat: "z",
+            beforeSetDate: date => {
+              if (typeof date !== "string") {
+                return date;
+              }
+              let reg = /(?<year>\d{3})-?(?<month>\d{2})-?(?<day>\d{2})/;
+              let match = date.match(reg);
+              if (!match) {
+                return "";
+              }
+              let groups = match.groups;
+              return `${("0" + groups.year).slice(-4)}-${groups.month}-${groups.day}`;
+            }
+          }}
+          placeholder="Select minguo date"/>
+
+          <Flatpickr  data-enable-time options={{
+            altInput: true,
+            altFormat: "C-m-d H:i",
+            locale: zhTwMinguo,
+            enableTime: true,
+            allowInput: true,
+            dateFormat: "z",
+            beforeSetDate: date => {
+              if (typeof date !== "string") {
+                return date;
+              }
+              let reg = /(?<year>\d{3})-?(?<month>\d{2})-?(?<day>\d{2})\s?(?<hour>\d{2})?:?(?<minute>\d{2})?/;
+              let match = date.match(reg);
+              if (!match) {
+                return "";
+              }
+              let groups = match.groups;
+              date = `${("0" + groups.year).slice(-4)}-${groups.month}-${groups.day}`;
+              if (groups.hour) date += " " + groups.hour;
+              if (groups.minute) date += ":" + groups.minute;
+              return date;
+            }
+          }}
+          placeholder="Select minguo datetime"/>
       </main>
     )
   }
