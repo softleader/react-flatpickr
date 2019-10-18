@@ -1,6 +1,6 @@
 {
-  "name": "@softleader/react-flatpickr",
-  "version": "3.9.0",
+  "name": "react-flatpickr",
+  "version": "3.9.1",
   "description": "flatpickr for React",
   "main": "build/index.js",
   "scripts": {
